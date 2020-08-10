@@ -118,10 +118,42 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        arguements = args.split(" ")
+        if arguements[0] in HBNBCommand.classes:
+            new_instance = eval("{}()".format(arguements[0]))
+        else:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+        # new_instance = HBNBCommand.classes[args]()
+        for i in range(1, len(arguements)):
+            access_granted = True
+            key_val = arguements[i].split("=")
+            if not hasattr(new_instance, key_val[0]):
+                continue
+            if key_val[1][0] == '"' and key_val[1][-1] =='"':
+                key_val[1] = key_val[1].replace('_', ' ')
+                string_value = key_val[1][1:-1]
+                for i, char in enumerate(string_value):
+                    if char == '"':
+                        if i != 0 and string_value[i-1] =='\\':
+                            continue
+                        else:
+                            access_granted = False
+                            break
+                key_val[1] = string_value
+            else:
+                if '.' in key_val[1]:
+                    try:
+                        key_val[1] = float(key_val[1])
+                    except:
+                        access_granted = False
+                else:
+                    try:
+                        key_val[1] = int(key_val[1])
+                    except:
+                        access_granted = False
+            if access_granted:
+                new_instance.__dict__[key_val[0]] = key_val[1]
         storage.save()
         print(new_instance.id)
         storage.save()
