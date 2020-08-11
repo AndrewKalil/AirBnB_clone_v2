@@ -19,3 +19,8 @@ class City(BaseModel, Base):
     state_id = Column(String(60),
                       ForeignKey("states.id", ondelete="CASCADE"),
                       nullable=False)
+
+    places = relationship("Places",
+                          backref="cities",
+                          cascade='all',
+                          passive_deletes=True)
