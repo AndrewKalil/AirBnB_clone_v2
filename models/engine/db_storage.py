@@ -1,12 +1,8 @@
 #!/usr/bin/python3
 """Engine DBStorage Module"""
 from models.base_model import BaseModel, Base
-from models.user import User
 from models.city import City
 from models.state import State
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
 
 from sqlalchemy import create_engine, MetaData
 from os import getenv
@@ -37,8 +33,8 @@ class DBStorage:
 
     def all(self, cls=None):
         """all objects depending of the class name"""
-
-        clss = [City, State]
+        clss = [City,
+                State]
         objs = []
         _dic = {}
 
@@ -68,6 +64,7 @@ class DBStorage:
         """delete from the current database session"""
         if obj:
             self.__session.delete(obj)
+            self.save()
 
     def reload(self):
         """create all tables in the database"""
