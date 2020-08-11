@@ -154,9 +154,8 @@ class HBNBCommand(cmd.Cmd):
                         access_granted = False
             if access_granted:
                 new_instance.__dict__[key_val[0]] = key_val[1]
-        storage.save()
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
