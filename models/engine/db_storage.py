@@ -4,7 +4,7 @@ from models.base_model import BaseModel, Base
 from models.city import City
 from models.state import State
 
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 from os import getenv
 
 
@@ -18,7 +18,7 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        """"""
+        """This class manage Storage for Database"""
         from models.base_model import Base
         self.__engine = create_engine(
             'mysql+mysqldb://{}:{}@{}:3306/{}'
@@ -50,7 +50,6 @@ class DBStorage:
 
         return _dic
 
-
     def new(self, obj):
         """add the object to the current database session"""
         if obj:
@@ -64,7 +63,6 @@ class DBStorage:
         """delete from the current database session"""
         if obj:
             self.__session.delete(obj)
-            self.save()
 
     def reload(self):
         """create all tables in the database"""
@@ -72,7 +70,7 @@ class DBStorage:
 
         Base.metadata.create_all(self.__engine)
 
-        sess_factory = sessionmaker(bind=self.__engine,
-                                     expire_on_commit=False)
-        Session = scoped_session(sess_factory)
+        Session = scoped_session(sessionmaker(bind=self.__engine,
+                                              expire_on_commit=False))
+
         self.__session = Session()
