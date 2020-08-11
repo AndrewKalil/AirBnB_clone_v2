@@ -1,5 +1,8 @@
+# Test files
 test_params_create
 setup_mysql_test.sql
+main_delete.py
+file.json
 
 # Pycache
 __pycache__
