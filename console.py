@@ -130,12 +130,12 @@ class HBNBCommand(cmd.Cmd):
             key_val = arguements[i].split("=")
             if not hasattr(new_instance, key_val[0]):
                 continue
-            if key_val[1][0] == '"' and key_val[1][-1] =='"':
+            if key_val[1][0] == '"' and key_val[1][-1] == '"':
                 key_val[1] = key_val[1].replace('_', ' ')
                 string_value = key_val[1][1:-1]
                 for i, char in enumerate(string_value):
                     if char == '"':
-                        if i != 0 and string_value[i-1] =='\\':
+                        if i != 0 and string_value[i-1] == '\\':
                             continue
                         else:
                             access_granted = False
