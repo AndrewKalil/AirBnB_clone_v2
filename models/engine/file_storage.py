@@ -50,7 +50,7 @@ class FileStorage:
             obj: Object
         """
         if obj:
-            key = "{}.{}".format(type(obj).__name__, obj.id)
+            key = "{} {}".format(type(obj).__name__, obj.id)
             if key in FileStorage.__objects:
                 del FileStorage.__objects[key]
                 self.save()
