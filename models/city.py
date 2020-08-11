@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """ City Module for HBNB project """
 from models.base_model import BaseModel, Base
+from models.place import Place
 from sqlalchemy import Column, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 
 
 class City(BaseModel, Base):
@@ -20,7 +21,7 @@ class City(BaseModel, Base):
                       ForeignKey("states.id", ondelete="CASCADE"),
                       nullable=False)
 
-    places = relationship("Places",
-                          backref="cities",
+    places = relationship("Place",
+                          backref=backref("cities"),
                           cascade='all',
                           passive_deletes=True)

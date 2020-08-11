@@ -17,11 +17,11 @@ class State(BaseModel, Base):
 
     if getenv("HBNB_TYPE_STORAGE") == "db":
         cities = relationship("City",
-                              backref="state",
+                              backref=backref("state"),
                               cascade='all',
                               single_parent=True)
 
-    if getenv("HBNB_TYPE_STORAGE") == "file":
+    if getenv("HBNB_TYPE_STORAGE") == "fs":
         @property
         def cities(self):
             """Return the list of City instances with state_id """

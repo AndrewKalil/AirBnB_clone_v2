@@ -3,6 +3,8 @@
 from models.base_model import BaseModel, Base
 from models.city import City
 from models.state import State
+from models.user import User
+from models.place import Place
 
 from sqlalchemy import create_engine
 from os import getenv
@@ -34,7 +36,9 @@ class DBStorage:
     def all(self, cls=None):
         """all objects depending of the class name"""
         clss = [City,
-                State]
+                State,
+                User,
+                Place]
         objs = []
         _dic = {}
 

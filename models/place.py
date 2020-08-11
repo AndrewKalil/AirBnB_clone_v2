@@ -2,7 +2,6 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
-from os import env
 
 
 class Place(BaseModel, Base):
@@ -11,11 +10,11 @@ class Place(BaseModel, Base):
     __tablename__ = "places"
 
     city_id = Column(String(60),
-                     nullable=False,
-                     ForeignKey='cities.id')
+                     ForeignKey("cities.id", ondelete="CASCADE"),
+                     nullable=False)
     user_id = Column(String(60),
-                     nullable=False,
-                     ForeignKey='users.id')
+                     ForeignKey("users.id", ondelete="CASCADE"),
+                     nullable=False)
     name = Column(String(128),
                   nullable=False)
     description = Column(String(1024),
