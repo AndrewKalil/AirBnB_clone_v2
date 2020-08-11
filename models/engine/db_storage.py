@@ -1,5 +1,13 @@
 #!/usr/bin/python3
 """Engine DBStorage Module"""
+from models.base_model import BaseModel, Base
+from models.user import User
+from models.city import City
+from models.state import State
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
 from sqlalchemy import create_engine, MetaData
 from os import getenv
 
@@ -24,36 +32,33 @@ class DBStorage:
                     getenv("HBNB_MYSQL_DB")),
             pool_pre_ping=True)
 
+        if getenv("HBNB_ENV") == "test":
+            Base.metadata.drop_all(self.__engine)
+
     def all(self, cls=None):
         """all objects depending of the class name"""
-        from models.user import User
-        from models.city import City
-        from models.state import State
-        from models.amenity import Amenity
-        from models.place import Place
-        from models.review import Review
 
-        clss = [User, City, State, Amenity, Place, Review]
-        rows = []
-        #dic = {}
+        clss = [City, State]
+        objs = []
+        _dic = {}
 
         if cls:
-            rows = self.__session.query(cls)
+            objs = self.__session.query(cls).all()
         else:
             for cls in clss:
-                rows += self.__session.query(cls)
+                objs += self.__session.query(cls)
 
-        return {type(v).__name__ + "." + v.id: v for v in rows}
+        for obj in objs:
+            key = "{}.{}".format(type(obj).__name__, str(obj.id))
+            _dic[key] = obj
 
-        #for v in rows.values():
-        #    dic = "{}.{}".format(type(v).__name__, v.id)
+        return _dic
 
 
     def new(self, obj):
         """add the object to the current database session"""
-        if not obj:
-            return
-        self.__session.add(obj)
+        if obj:
+            self.__session.add(obj)
 
     def save(self):
         """commit all changes of the current database session"""
@@ -63,21 +68,11 @@ class DBStorage:
         """delete from the current database session"""
         if obj:
             self.__session.delete(obj)
-            self.save()
 
     def reload(self):
         """create all tables in the database"""
-        from models.base_model import Base
-        from models.user import User
-        from models.city import City
-        from models.state import State
-        from models.amenity import Amenity
-        from models.place import Place
-        from models.review import Review
         from sqlalchemy.orm import sessionmaker, scoped_session
 
-        if getenv("HBNB_ENV") == "test":
-            Base.metadata.drop_all(self.__engine)
         Base.metadata.create_all(self.__engine)
 
         sess_factory = sessionmaker(bind=self.__engine,
