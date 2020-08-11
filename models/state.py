@@ -6,6 +6,7 @@ from sqlalchemy import Column, String
 from models.city import City
 from os import getenv
 
+
 class State(BaseModel, Base):
     """ State class """
 
@@ -16,12 +17,11 @@ class State(BaseModel, Base):
 
     if getenv("HBNB_TYPE_STORAGE") == "db":
         cities = relationship("City",
+                              backref="state",
                               cascade='all',
-                              backref=backref("state", cascade='all'),
-                              passive_deletes=True,
                               single_parent=True)
 
-    if getenv("HBNB_TYPE_STORAGE") == "fs":
+    if getenv("HBNB_TYPE_STORAGE") == "file":
         @property
         def cities(self):
             """Return the list of City instances with state_id """
