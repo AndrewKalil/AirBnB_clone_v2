@@ -1,10 +1,24 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from models.amenity import Amenity
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy import *
+from sqlalchemy.orm import relationship
 from os import getenv
+
+place_amenity = Table("place_amenity",
+                      Base. metadata,
+                      Column("place_id", String(60),
+                             ForeignKey("places.id",
+                                        ondelete="CASCADE"),
+                             primary_key=True,
+                             nullable=False),
+                      Column("amenity_id", String(60),
+                             ForeignKey("amenities.id",
+                                        ondelete="CASCADE"),
+                             primary_key=True,
+                             nullable=False))
+
 
 class Place(BaseModel, Base):
     """A place to stay """
@@ -38,28 +52,12 @@ class Place(BaseModel, Base):
     longitude = Column(Float,
                        nullable=True)
 
-
-    place_amenity =  Table("place_amenity",
-                          Base. metadata,
-                           Column("place_id", String(60),
-                                  ForeignKey("places.id",
-                                             ondelete="CASCADE"),
-                                  primary_key=True,
-                                  nullable=False),
-                           Column("amenity_id", String(60),
-                                  ForeignKey("amenities.id",
-                                             ondelete="CASCADE"),
-                                  primary_key=True,
-                                  nullable=False))
-
-    if getenv("HBNB_TYPE_STORAGE") == "db":
-        amenities = relationship("Amenity",
-                                 secondary=place_amenity,
-                                 viewonly=False)
+    reviews = relationship("Review", backref="places",
+                           cascade="delete")
 
     amenity_ids = []
 
-    if getenv("HBNB_TYPE_STORAGE") == "fs":
+    if getenv("HBNB_TYPE_STORAGE") == "file":
         @property
         def amenities(self):
             """Returns the list of Amenity"""
@@ -72,7 +70,12 @@ class Place(BaseModel, Base):
         @amenities.setter
         def amenities(self, obj):
             """Handles append method for adding an Amenity.id"""
-            if isinstance(obj.__name__, 'Amenity'):
+            if type(obj).__name__ == 'Amenity':
                 self.amenity_ids.append(obj)
             else:
                 return
+
+    elif getenv("HBNB_TYPE_STORAGE") == "db":
+        amenities = relationship("Amenity",
+                                 secondary='place_amenity',
+                                 viewonly=False)

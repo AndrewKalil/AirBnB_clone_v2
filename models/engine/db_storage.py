@@ -6,6 +6,7 @@ from models.state import State
 from models.user import User
 from models.place import Place
 from models.amenity import Amenity
+from models.review import Review
 
 from sqlalchemy import create_engine
 from os import getenv
@@ -39,6 +40,7 @@ class DBStorage:
                 State,
                 User,
                 Place,
+                Review,
                 Amenity]
         objs = []
         _dic = {}
