@@ -9,13 +9,11 @@ from os import getenv
 place_amenity = Table("place_amenity",
                       Base. metadata,
                       Column("place_id", String(60),
-                             ForeignKey("places.id",
-                                        ondelete="CASCADE"),
+                             ForeignKey("places.id"),
                              primary_key=True,
                              nullable=False),
                       Column("amenity_id", String(60),
-                             ForeignKey("amenities.id",
-                                        ondelete="CASCADE"),
+                             ForeignKey("amenities.id"),
                              primary_key=True,
                              nullable=False))
 
@@ -54,7 +52,15 @@ class Place(BaseModel, Base):
 
     amenity_ids = []
 
-    if getenv("HBNB_TYPE_STORAGE") == "file":
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        reviews = relationship("Review", backref="places",
+                               cascade="delete")
+
+        amenities = relationship("Amenity",
+                                 secondary='place_amenity',
+                                 viewonly=False)
+
+    else:
         @property
         def amenities(self):
             """Returns the list of Amenity"""
@@ -69,11 +75,3 @@ class Place(BaseModel, Base):
             """Handles append method for adding an Amenity.id"""
             if type(obj).__name__ == 'Amenity':
                 self.amenity_ids.append(obj)
-
-    elif getenv("HBNB_TYPE_STORAGE") == "db":
-        reviews = relationship("Review", backref="places",
-                               cascade="delete")
-
-        amenities = relationship("Amenity",
-                                 secondary='place_amenity',
-                                 viewonly=False)
