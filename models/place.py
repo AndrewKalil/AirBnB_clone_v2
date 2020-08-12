@@ -52,9 +52,6 @@ class Place(BaseModel, Base):
     longitude = Column(Float,
                        nullable=True)
 
-    reviews = relationship("Review", backref="places",
-                           cascade="delete")
-
     amenity_ids = []
 
     if getenv("HBNB_TYPE_STORAGE") == "file":
@@ -72,10 +69,11 @@ class Place(BaseModel, Base):
             """Handles append method for adding an Amenity.id"""
             if type(obj).__name__ == 'Amenity':
                 self.amenity_ids.append(obj)
-            else:
-                return
 
     elif getenv("HBNB_TYPE_STORAGE") == "db":
+        reviews = relationship("Review", backref="places",
+                               cascade="delete")
+
         amenities = relationship("Amenity",
                                  secondary='place_amenity',
                                  viewonly=False)
