@@ -22,6 +22,6 @@ class City(BaseModel, Base):
                       nullable=False)
 
     places = relationship("Place",
-                          backref=backref("cities"),
                           cascade='all',
+                          backref=backref("cities", cascade='all'),
                           passive_deletes=True)

@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
+from models.amenity import Amenity
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
-
+from sqlalchemy import *
+from os import getenv
 
 class Place(BaseModel, Base):
     """A place to stay """
@@ -35,3 +37,42 @@ class Place(BaseModel, Base):
                       nullable=True)
     longitude = Column(Float,
                        nullable=True)
+
+
+    place_amenity =  Table("place_amenity",
+                          Base. metadata,
+                           Column("place_id", String(60),
+                                  ForeignKey("places.id",
+                                             ondelete="CASCADE"),
+                                  primary_key=True,
+                                  nullable=False),
+                           Column("amenity_id", String(60),
+                                  ForeignKey("amenities.id",
+                                             ondelete="CASCADE"),
+                                  primary_key=True,
+                                  nullable=False))
+
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        amenities = relationship("Amenity",
+                                 secondary=place_amenity,
+                                 viewonly=False)
+
+    amenity_ids = []
+
+    if getenv("HBNB_TYPE_STORAGE") == "fs":
+        @property
+        def amenities(self):
+            """Returns the list of Amenity"""
+            _list = []
+            for obj in amenity_ids:
+                if obj.id == self.id:
+                    _list.append(obj)
+            return (_list)
+
+        @amenities.setter
+        def amenities(self, obj):
+            """Handles append method for adding an Amenity.id"""
+            if isinstance(obj.__name__, 'Amenity'):
+                self.amenity_ids.append(obj)
+            else:
+                return

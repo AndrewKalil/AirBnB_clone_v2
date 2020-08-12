@@ -5,6 +5,7 @@ from models.city import City
 from models.state import State
 from models.user import User
 from models.place import Place
+from models.amenity import Amenity
 
 from sqlalchemy import create_engine
 from os import getenv
@@ -21,7 +22,6 @@ class DBStorage:
 
     def __init__(self):
         """This class manage Storage for Database"""
-        from models.base_model import Base
         self.__engine = create_engine(
             'mysql+mysqldb://{}:{}@{}:3306/{}'
             .format(getenv("HBNB_MYSQL_USER"),
@@ -38,7 +38,8 @@ class DBStorage:
         clss = [City,
                 State,
                 User,
-                Place]
+                Place,
+                Amenity]
         objs = []
         _dic = {}
 

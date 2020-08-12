@@ -17,7 +17,7 @@ class State(BaseModel, Base):
 
     if getenv("HBNB_TYPE_STORAGE") == "db":
         cities = relationship("City",
-                              backref=backref("state"),
+                              backref=backref("state", cascade='all'),
                               cascade='all',
                               single_parent=True)
 

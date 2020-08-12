@@ -2,7 +2,7 @@
 # Environment variables
 
 export HBNB_ENV='dev'
-export HBNB_MYSQL_USER='root'
+export HBNB_MYSQL_USER=''
 export HBNB_MYSQL_PWD=''
 export HBNB_MYSQL_HOST='localhost'
 export HBNB_MYSQL_DB='db'
