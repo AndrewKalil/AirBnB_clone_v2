@@ -16,7 +16,7 @@ class FileStorage:
             returns the list of objects of one type of class.
         """
         _dic = {}
-        if not cls:
+        if cls is None:
             return (self.__objects)
         else:
             for key, value in self.__objects.items():

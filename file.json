@@ -56,5 +56,12 @@
         "latitude": 37.773972,
         "longitude": -122.431297,
         "__class__": "Place"
+    },
+    "State.c9824705-e0cd-4eb2-8a64-52d0dc996a81": {
+        "id": "c9824705-e0cd-4eb2-8a64-52d0dc996a81",
+        "created_at": "2020-08-12T13:55:16.118318",
+        "updated_at": "2020-08-12T13:55:16.118334",
+        "name": "Nevada",
+        "__class__": "State"
     }
 }
