@@ -103,6 +103,3 @@ will show you that you successfully created your database.
 
 will show you the specific privileges the user has on the different databases.
 
-## Bugs
-
-+ No known bugs at this time.
