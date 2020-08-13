@@ -15,24 +15,34 @@ class TestUser(unittest.TestCase):
     """
         Testing User class
     """
+    @classmethod
+    def setUpClass(cls):
+        """Set up for test"""
+        cls.new_user = User()
+        cls.new_use.first_name = "Andrew"
+        cls.new_user.last_name = "Kalil"
+        cls.new_user.email = "andrewlito@gmail.com"
+        cls.new_user.password = "quetelocrea..."
 
     def test_User_inheritance(self):
         """
             tests that the User class Inherits from BaseModel
         """
-        new_user = User()
-        self.assertIsInstance(new_user, BaseModel)
+        cls.new_user = User()
+        self.assertIsInstance(self.new_user, BaseModel)
 
     def test_User_attributes(self):
         """
             Test the user attributes exist
         """
 
-        new_user = User()
-        self.assertTrue("email" in new_user.__dir__())
-        self.assertTrue("first_name" in new_user.__dir__())
-        self.assertTrue("last_name" in new_user.__dir__())
-        self.assertTrue("password" in new_user.__dir__())
+        self.assertTrue("email" in self.new_user.__dict__)
+        self.assertTrue("first_name" in self.new_user.__dict__)
+        self.assertTrue("last_name" in self.new_user.__dict__)
+        self.assertTrue("id" in self.new_user.__dict__)
+        self.assertTrue("password" in self.new_user.__dict__)
+        self.assertTrue("created_at" in self.new_user.__dict__)
+        self.assertTrue("updated_at" in self.new_user.__dict__)
 
     def test_type_email(self):
         """
@@ -65,3 +75,11 @@ class TestUser(unittest.TestCase):
         new = User()
         name = getattr(new, "password")
         self.assertIsInstance(name, str)
+
+    def test_docstring(self):
+        """Test documentation"""
+        u = User.__doc__
+        self.assertGreater(len(u), 1)
+
+if __name__ == '__main__':
+    unittest.main()
