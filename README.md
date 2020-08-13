@@ -1,10 +1,10 @@
-<center > <h1 > HBNB - The Console < /h1 > </center >
+<center > <h1 > HBNB - The Console </center >
 
 This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
 
 ---
 
-<center > <h3 > Repository Contents by Project Task < /h3 > </center >
+<center > <h3 > Repository Contents by Project Task </center >
 
 | Tasks | Files | Description |
 | ----- | ----- | ------ |
@@ -75,7 +75,7 @@ Advanced syntax is implemented for the following commands:
 <br >
 <br >
 <center > <h1> Examples </center >
-<h3 > Primary Command Syntax < /h3 >
+<h3 > Primary Command Syntax
 
 # Example 0: Create an object
 Usage: create < class_name >
