@@ -18,7 +18,7 @@ class State(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") == "db":
         cities = relationship("City",
                               backref=backref("state", cascade='all'),
-                              cascade="all",
+                              cascade="all, delete-orphan",
                               single_parent=True)
 
     if getenv("HBNB_TYPE_STORAGE") == "fs":
@@ -28,6 +28,6 @@ class State(BaseModel, Base):
             from models import storage
             city_list = []
             for ct in models.storage.all(City).values():
-                if ct.state.id == self.id:
+                if ct.state_id == self.id:
                     city_list.append(ct)
             return (city_list)
