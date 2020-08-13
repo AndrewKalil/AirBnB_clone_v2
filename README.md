@@ -36,17 +36,11 @@ This repository contains the initial stage of a student project to build a clone
 5. This prompt designates you are in the "HBnB" console. There are a variety of commands available within the console program.
 
 # Commands
-    * create - Creates an instance based on given class
-
-    * destroy - Destroys an object based on class and UUID
-
-    * show - Shows an object based on class and UUID
-
-    * all - Shows all objects the program has access to, or all objects of a given class
-
-    * update - Updates existing attributes an object based on class name and UUID
-
-    * quit - Exits the program(EOF will as well)
++ Crete a new object.
++ Retrieve an object from a file, database, etc.
++ Execute operation on objects. e.g. Count, compute statistics, etc.
++ Update object's attributes.
++ Destroy an object.
 
 
 # Alternative Syntax
