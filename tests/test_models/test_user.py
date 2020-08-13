@@ -19,7 +19,7 @@ class TestUser(unittest.TestCase):
     def setUpClass(cls):
         """Set up for test"""
         cls.new_user = User()
-        cls.new_use.first_name = "Andrew"
+        cls.new_user.first_name = "Andrew"
         cls.new_user.last_name = "Kalil"
         cls.new_user.email = "andrewlito@gmail.com"
         cls.new_user.password = "quetelocrea..."
@@ -28,7 +28,6 @@ class TestUser(unittest.TestCase):
         """
             tests that the User class Inherits from BaseModel
         """
-        cls.new_user = User()
         self.assertIsInstance(self.new_user, BaseModel)
 
     def test_User_attributes(self):
@@ -48,32 +47,28 @@ class TestUser(unittest.TestCase):
         """
             Test the type of name
         """
-        new = User()
-        name = getattr(new, "email")
+        name = getattr(self.new_user, "email")
         self.assertIsInstance(name, str)
 
     def test_type_first_name(self):
         """
             Test the type of name
         """
-        new = User()
-        name = getattr(new, "first_name")
+        name = getattr(self.new_user, "first_name")
         self.assertIsInstance(name, str)
 
     def test_type_last_name(self):
         """
             Test the type of last_name
         """
-        new = User()
-        name = getattr(new, "last_name")
+        name = getattr(self.new_user, "last_name")
         self.assertIsInstance(name, str)
 
     def test_type_password(self):
         """
             Test the type of password
         """
-        new = User()
-        name = getattr(new, "password")
+        name = getattr(self.new_user, "password")
         self.assertIsInstance(name, str)
 
     def test_docstring(self):

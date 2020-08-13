@@ -33,16 +33,12 @@ class TestReview(unittest.TestCase):
             Test that Review class has place_id, user_id and text
             attributes.
         """
-        self.assertTrue("place_id" in new_review.__dir__())
-        self.assertTrue("user_id" in new_review.__dir__())
-        self.assertTrue("text" in new_review.__dir__())
-        place_id = getattr(new_review, "place_id")
-        user_id = getattr(new_review, "user_id")
-        text = getattr(new_review, "text")
+        self.assertTrue("place_id" in self.new_review.__dir__())
+        self.assertTrue("user_id" in self.new_review.__dir__())
+        self.assertTrue("text" in self.new_review.__dir__())
+        place_id = getattr(self.new_review, "place_id")
+        user_id = getattr(self.new_review, "user_id")
+        text = getattr(self.new_review, "text")
         self.assertIsInstance(place_id, str)
         self.assertIsInstance(user_id, str)
         self.assertIsInstance(text, str)
-
-
-if __name__ == '__main__':
-    unittest.main()

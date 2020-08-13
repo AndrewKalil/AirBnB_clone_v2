@@ -2,30 +2,29 @@
 """ Amenity test module"""
 from models.amenity import Amenity
 from models.base_model import BaseModel
+import unittest
 
 
-class test_Amenity(test_basemodel):
+class TestAmenity(unittest.TestCase):
     """ test class for amenity"""
 
-    def __init__(self, *args, **kwargs):
-        """ Instantiation """
-        super().__init__(*args, **kwargs)
-        self.name = "Amenity"
-        self.value = Amenity
+    @classmethod
+    def setUpClass(cls):
+        """Set up for test"""
+        cls.new_amenity = Amenity()
+        cls.new_amenity.name = "Wifi"
 
     def test_name2(self):
         """
             test if name is a string
         """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+        self.assertEqual(type(self.new_amenity.name), str)
 
     def test_Amenity_inheritance(self):
         """
             tests that the Amenity class Inherits from BaseModel
         """
-        new_amenity = Amenity()
-        self.assertIsInstance(new_amenity, BaseModel)
+        self.assertIsInstance(self.new_amenity, BaseModel)
 
     def test_Amenity_attributes(self):
         """
@@ -38,6 +37,5 @@ class test_Amenity(test_basemodel):
         """
             Test that Amenity class had name attribute's type.
         """
-        new_amenity = Amenity()
-        name_value = getattr(new_amenity, "name")
+        name_value = getattr(self.new_amenity, "name")
         self.assertIsInstance(name_value, str)

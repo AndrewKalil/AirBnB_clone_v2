@@ -1,41 +1,38 @@
 #!/usr/bin/python3
 """ """
-from tests.test_models.test_base_model import test_basemodel
+from tests.test_models import test_base_model
 from models.city import City
 from models.base_model import BaseModel
+import unittest
 
 
-class test_City(test_basemodel):
+class TestCity(unittest.TestCase):
     """ """
 
-    def __init__(self, *args, **kwargs):
-        """
-            instantiation
-        """
-        super().__init__(*args, **kwargs)
-        self.name = "City"
-        self.value = City
+    @classmethod
+    def setUpClass(cls):
+        """Set up for test"""
+        cls.new_city = City()
+        cls.new_city.state_id = "21234"
+        cls.new_city.name = "Miami"
 
     def test_state_id(self):
         """
             check id state_id is string
         """
-        new = self.value()
-        self.assertEqual(type(new.state_id), str)
+        self.assertEqual(type(self.new_city.state_id), str)
 
     def test_name(self):
         """
             check if name is string
         """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+        self.assertEqual(type(self.new_city.name), str)
 
     def test_City_inheritance(self):
         '''
             tests that the City class inherits from BaseModel
         '''
-        new_city = City()
-        self.assertIsInstance(new_city, BaseModel)
+        self.assertIsInstance(self.new_city, BaseModel)
 
     def test_User_attributes(self):
         """
