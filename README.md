@@ -1,6 +1,7 @@
-<center > <h1 > HBNB clone - MySQL </center > :computer:
+<center > <h1 > HBNB clone - MySQL :computer:</center >
 
 In this project we will do two things as part of the main and bigger project: HBNB Clone. We will replace the file storage by a Database storage and map your models to a table in database by using an O.R.M.
+
 ---
 
 <center > <h3 > Repository Contents by Project Task </center >
