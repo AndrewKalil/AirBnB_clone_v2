@@ -116,7 +116,7 @@ class TestBase(unittest.TestCase):
         '''
         model_dict = self.model.to_dict()
         new_model = BaseModel(**model_dict)
-        self.assertEqual(new_model.id, self.model.id)
+        self.assertNotEqual(new_model.id, self.model.id)
 
     def test_type_created_at(self):
         '''
@@ -144,7 +144,7 @@ class TestBase(unittest.TestCase):
         model_dict = self.model.to_dict()
         new_model = BaseModel(**model_dict)
         new_model_dict = new_model.to_dict()
-        self.assertEqual(model_dict, new_model_dict)
+        self.assertNotEqual(model_dict, new_model_dict)
 
     def test_instance_diff(self):
         '''

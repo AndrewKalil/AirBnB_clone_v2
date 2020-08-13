@@ -13,6 +13,13 @@ class TestReview(unittest.TestCase):
     """
         Testing Review class
     """
+    @classmethod
+    def setUpClass(cls):
+        """Set up for test"""
+        cls.new_review = Review()
+        cls.new_review.place_id = "21234"
+        cls.new_review.user_id = "1211-asdd-1212-000s"
+        cls.new_review.text = "texttexttexttexttexttext"
 
     def test_Review_inheritance(self):
         """
@@ -26,7 +33,6 @@ class TestReview(unittest.TestCase):
             Test that Review class has place_id, user_id and text
             attributes.
         """
-        new_review = Review()
         self.assertTrue("place_id" in new_review.__dir__())
         self.assertTrue("user_id" in new_review.__dir__())
         self.assertTrue("text" in new_review.__dir__())
