@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Environment variables
 
-export HBNB_ENV='dev'
-export HBNB_MYSQL_USER=''
-export HBNB_MYSQL_PWD=''
-export HBNB_MYSQL_HOST='localhost'
-export HBNB_MYSQL_DB='db'
-export HBNB_TYPE_STORAGE='file'
+export HBNB_ENV = 'dev'
+export HBNB_MYSQL_USER = ''
+export HBNB_MYSQL_PWD = ''
+export HBNB_MYSQL_HOST = 'localhost'
+export HBNB_MYSQL_DB = 'db'
+export HBNB_TYPE_STORAGE = 'file'
