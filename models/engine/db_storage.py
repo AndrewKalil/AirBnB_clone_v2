@@ -36,8 +36,8 @@ class DBStorage:
 
     def all(self, cls=None):
         """all objects depending of the class name"""
-        clss = [City,
-                State,
+        clss = [State,
+                City,
                 User,
                 Place,
                 Review,
