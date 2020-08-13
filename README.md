@@ -42,6 +42,19 @@ This repository contains the initial stage of a student project to build a clone
 + Update object's attributes.
 + Destroy an object.
 
+#### Commands
+
+Commands | Description | Usage
+-------- | ----------- |-------- |
+**help** or **?**| Displays the documented commands. | **help**
+**quit**     | Exits the program. | **quit**
+**EOF**      | Ends the program. Used when files are passed into the program. | N/A
+**create**  | Creates a new instance of the \<class_name\>. followed by its parameters. Creates a Json file with the object representation. and prints the id of created object. | **create** \<class_name\>
+**show**    | Prints the string representation of an instance based on the class name and id. | **show** \<class_name class_id\>
+**destroy** | Deletes and instance base on the class name and id. | **destroy** \<class_name class_id\>
+**all** | Prints all string representation of all instances based or not on the class name | **all** or **all** \<class_name class_id\>
+**update** | Updates an instance based on the class name and id by adding or updating attribute | **update** \<class_name class_id key value\>
+
 
 # Alternative Syntax
 Users are able to issue a number of console command using an alternative syntax:
