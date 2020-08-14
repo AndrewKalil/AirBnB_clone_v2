@@ -21,6 +21,12 @@ class TestBase(unittest.TestCase):
         self.model = BaseModel()
         self.model.name = "Test Model"
 
+    def __init__(self, *args, **kwargs):
+        """Init setUp module"""
+        super().__init__(*args, **kwargs)
+        self.name = 'BaseModel'
+        self.value = BaseModel
+
     def TearDown(self):
         '''
             Removing instance.
@@ -53,6 +59,19 @@ class TestBase(unittest.TestCase):
         self.assertEqual(self.model.updated_at.year,
                          self.model.created_at.year)
 
+    @unittest.skip("new future added")
+    def test_kwargs_one(self):
+        """test Kwargs"""
+        n = {'Name': 'test'}
+        with self.assertRaises(KeyError):
+            new = self.value(**n)
+
+    def test_kwargs_object(self):
+        """Kwargs objcts"""
+        n = {'Name': 'test'}
+        new_obj = self.value(**n)
+        self.assertEqual(new_obj.__dict__['Name'], 'test')
+
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
                      "Don't test if not FileStorage storing")
     def test_save(self):
@@ -63,6 +82,14 @@ class TestBase(unittest.TestCase):
         old_update = self.model.updated_at
         self.model.save()
         self.assertNotEqual(self.model.updated_at, old_update)
+
+    def test_updated_at(self):
+        """updated_at"""
+        new = self.value()
+        self.assertEqual(type(new.updated_at), datetime.datetime)
+        n = new.to_dict()
+        new = BaseModel(**n)
+        self.assertTrue(new.created_at == new.updated_at)
 
     def test_str_overide(self):
         '''

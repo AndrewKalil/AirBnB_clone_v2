@@ -8,10 +8,16 @@ import pep8
 
 
 @unittest.skipIf(
-        os.getenv('HBNB_TYPE_STORAGE') == 'db',
+        os.getenv('HBNB_TYPE_STORAGE') != 'db',
         "This test only work in FileStorage")
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
+
+    @classmethod
+    def setUpClass(self):
+        storage._DBStorage__session.close()
+        self.store = DBStorage()
+        self.store.reload()
 
     def setUp(self):
         """ Set up test environment """
@@ -27,12 +33,10 @@ class test_fileStorage(unittest.TestCase):
         p = style.check_files(['models/engine/file_storage.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def tearDown(self):
-        """ Remove storage file at end of tests """
-        try:
-            os.remove('file.json')
-        except:
-            pass
+    @classmethod
+    def tearDownClass(self):
+        self.store._DBStorage__session.close()
+        storage.reload()
 
     def test_obj_list_empty(self):
         """ __objects is initially empty """
@@ -65,11 +69,27 @@ class test_fileStorage(unittest.TestCase):
         new2 = BaseModel(**thing)
         self.assertNotEqual(os.path.getsize('file.json'), 0)
 
+    def test_new(self):
+        new_obj = State()
+        new_obj.name = "Texas"
+        new_obj.save()
+        self.assertTrue(len(self.store.all()), 1)
+
     def test_save(self):
-        """ FileStorage save method """
-        new = BaseModel()
-        storage.save()
-        self.assertTrue(os.path.exists('file.json'))
+        self.store.reload()
+        new_obj = State()
+        new_obj.name = 'Washington'
+        self.store.new(new_obj)
+        self.store.save()
+        self.assertEqual(len(self.store.all()), 4)
+
+    def test_delete(self):
+        new_obj = State()
+        new_obj.name = "Michigan"
+        self.store.new(new_obj)
+        self.store.save()
+        self.store.delete(new_obj)
+        self.assertFalse(new_obj in self.store.all())
 
     def test_reload_empty(self):
         """ Load from an empty file """
