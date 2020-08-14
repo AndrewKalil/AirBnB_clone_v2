@@ -42,6 +42,13 @@ class TestConsole(unittest.TestCase):
         """Reset FileStorage objects dictionary."""
         FileStorage._FileStorage__objects = {}
 
+    def tearDown(self):
+        """Delete any created file.json."""
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+
     def test_pep8_FileStorage(self):
         """Tests pep8 style"""
 
@@ -75,6 +82,46 @@ class TestConsole(unittest.TestCase):
                 "** no instance found **\n", f.getvalue())
 
     @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
+    def test_create(self):
+        """Test create command."""
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("create User")
+            us = f.getvalue().strip()
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("create State")
+            st = f.getvalue().strip()
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("create Place")
+            pl = f.getvalue().strip()
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("create City")
+            ct = f.getvalue().strip()
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("create Review")
+            rv = f.getvalue().strip()
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("create Amenity")
+            am = f.getvalue().strip()
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("all User")
+            self.assertIn(us, f.getvalue())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("all State")
+            self.assertIn(st, f.getvalue())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("all Place")
+            self.assertIn(pl, f.getvalue())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("all City")
+            self.assertIn(ct, f.getvalue())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("all Review")
+            self.assertIn(rv, f.getvalue())
+        with patch("sys.stdout", new=StringIO()) as f:
+            self.HBNB.onecmd("all Amenity")
+            self.assertIn(am, f.getvalue())
+
+    @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
     def test_create_kwargs(self):
         """Test create command with kwargs."""
         with patch("sys.stdout", new=StringIO()) as f:
@@ -92,7 +139,8 @@ class TestConsole(unittest.TestCase):
             self.assertIn("'latitude': 37.77", output)
             self.assertNotIn("'longitude'", output)
 
-    @unittest.skipIf(type(models.storage) == DBStorage, "Testing DBStorage")
+    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db",
+                     "Not using db")
     def test_all(self):
         """Test all command input."""
         with patch('sys.stdout', new=StringIO()) as f:
