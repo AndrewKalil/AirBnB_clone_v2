@@ -76,5 +76,17 @@ class TestUser(unittest.TestCase):
         u = User.__doc__
         self.assertGreater(len(u), 1)
 
+    @unittest.skipIf(
+        os.getenv("HBNB_TYPE_STORAGE") == 'fs',
+        "This test only work in DBStorage")
+    def test_save_User(self):
+        """Test if the Save Working"""
+        self.new_user.save()
+        self.assertNotEqual(self.new_user.created_at, self.new_user.updated_at)
+
+    def test_to_dict_User(self):
+        """Test if Dictionary working"""
+        self.assertEqual('to_dict' in dir(self.new_user), True)
+
 if __name__ == '__main__':
     unittest.main()

@@ -154,3 +154,6 @@ class TestBase(unittest.TestCase):
         model_dict = self.model.to_dict()
         new_model = BaseModel(model_dict)
         self.assertNotEqual(self.model, new_model)
+
+if __name__ == '__main__':
+    unittest.main()

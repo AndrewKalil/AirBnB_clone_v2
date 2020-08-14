@@ -6,9 +6,8 @@ from models import storage
 import os
 import pep8
 
-
 @unittest.skipIf(
-        os.getenv('HBNB_TYPE_STORAGE') == 'db',
+        os.getenv('HBNB_TYPE_STORAGE') == 'fs',
         "This test only work in FileStorage")
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
@@ -26,7 +25,6 @@ class test_fileStorage(unittest.TestCase):
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(['models/engine/file_storage.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
-
     def tearDown(self):
         """ Remove storage file at end of tests """
         try:
@@ -104,7 +102,7 @@ class test_fileStorage(unittest.TestCase):
         dic = "{}.{}".format(BaseModel.__name__, _id)
         for key in storage.all().keys():
             temp = key
-        self.assertFalse(temp is dic)
+        self.assertTrue(temp, dic)
 
     def test_storage_var_created(self):
         """ FileStorage object storage created """

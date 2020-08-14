@@ -1,0 +1,44 @@
+{
+    "Place.d72dac38-d5cb-4c36-99b2-4df8014c1bd0": {
+        "id": "d72dac38-d5cb-4c36-99b2-4df8014c1bd0",
+        "created_at": "2020-08-13T21:17:13.934429",
+        "updated_at": "2020-08-13T21:17:13.934808",
+        "city_id": "00010",
+        "user_id": "1211-asdd-1212-000s",
+        "name": "Victoria residence",
+        "description": "Comfortable recidence for the families or                                     couples looking for a weekend escape",
+        "number_rooms": 2,
+        "number_bathrooms": 2,
+        "max_guest": 5,
+        "price_by_night": 60,
+        "latitude": 42.303993,
+        "longitude": -123.443211,
+        "__class__": "Place"
+    },
+    "Review.4c042483-5fb9-46ce-858d-40bb7f64f4fe": {
+        "id": "4c042483-5fb9-46ce-858d-40bb7f64f4fe",
+        "created_at": "2020-08-13T21:17:13.935979",
+        "updated_at": "2020-08-13T21:17:13.936287",
+        "place_id": "21234",
+        "user_id": "1211-asdd-1212-000s",
+        "text": "texttexttexttexttexttext",
+        "__class__": "Review"
+    },
+    "State.819f5cc3-cb3e-434a-a02b-9004a442d18c": {
+        "id": "819f5cc3-cb3e-434a-a02b-9004a442d18c",
+        "created_at": "2020-08-13T21:17:13.936819",
+        "updated_at": "2020-08-13T21:17:13.937144",
+        "name": "California",
+        "__class__": "State"
+    },
+    "User.bd84e524-8118-4f6f-bd1a-f834f8eddf90": {
+        "id": "bd84e524-8118-4f6f-bd1a-f834f8eddf90",
+        "created_at": "2020-08-13T21:17:13.958747",
+        "updated_at": "2020-08-13T21:17:13.959228",
+        "first_name": "Andrew",
+        "last_name": "Kalil",
+        "email": "andrewlito@gmail.com",
+        "password": "quetelocrea...",
+        "__class__": "User"
+    }
+}

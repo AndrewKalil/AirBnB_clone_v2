@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" """
+"""Unittest Place Module """
 import os
 import unittest
 from models.base_model import BaseModel
@@ -8,10 +8,8 @@ from models.place import Place
 
 @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
                  "test only for FileStorage")
-class TestUser(unittest.TestCase):
-    """
-        Testing Place class
-    """
+class TestPlace(unittest.TestCase):
+    """Testing Place class"""
 
     @classmethod
     def setUpClass(cls):
@@ -33,16 +31,12 @@ class TestUser(unittest.TestCase):
         pass
 
     def test_Place_inheritance(self):
-        """
-            tests that the City class Inherits from BaseModel
-        """
+        """tests that the City class Inherits from BaseModel"""
 
         self.assertIsInstance(self.new_place, BaseModel)
 
     def test_Place_attributes(self):
-        """
-            Checks that the attribute exist.
-        """
+        """Checks that the attribute exist."""
         self.assertTrue("city_id" in self.new_place.__dir__())
         self.assertTrue("user_id" in self.new_place.__dir__())
         self.assertTrue("description" in self.new_place.__dir__())
@@ -76,9 +70,7 @@ class TestUser(unittest.TestCase):
         self.assertIsInstance(amenity, list)
 
     def test_type_price_by_night(self):
-        """
-            Test price_by_night type
-        """
+        """Test price_by_night type"""
         price_by_night = getattr(self.new_place, "price_by_night")
         self.assertIsInstance(price_by_night, int)
 
@@ -97,36 +89,42 @@ class TestUser(unittest.TestCase):
         self.assertIsInstance(number_bathrooms, int)
 
     def test_type_number_rooms(self):
-        """
-            Test number_bathrooms type
-        """
+        """Test number_bathrooms type"""
         number_rooms = getattr(self.new_place, "number_rooms")
         self.assertIsInstance(number_rooms, int)
 
     def test_type_description(self):
-        """
-            Test description type
-        """
+        """Test description type"""
         description = getattr(self.new_place, "description")
         self.assertIsInstance(description, str)
 
     def test_type_name(self):
-        """
-            Test name type
-        """
+        """Test name type"""
         name = getattr(self.new_place, "name")
         self.assertIsInstance(name, str)
 
     def test_type_user_id(self):
-        """
-            Test user_id type
-        """
+        """Test user_id type"""
         user_id = getattr(self.new_place, "user_id")
         self.assertIsInstance(user_id, str)
 
     def test_type_city_id(self):
-        """
-            Test city_id type
-        """
+        """Test city_id type"""
         city_id = getattr(self.new_place, "city_id")
         self.assertIsInstance(city_id, str)
+
+    @unittest.skipIf(
+        os.getenv("HBNB_TYPE_STORAGE") == 'fs',
+        "This test only work in DBStorage")
+    def test_save_Place(self):
+        """Test if the Save Working"""
+        self.new_place.save()
+        self.assertNotEqual(self.new_place.created_at,
+                            self.new_place.updated_at)
+
+    def test_to_dict_Place(self):
+        """Test if Dictionary working"""
+        self.assertEqual('to_dict' in dir(self.new_place), True)
+
+if __name__ == '__main__':
+    unittest.main()
