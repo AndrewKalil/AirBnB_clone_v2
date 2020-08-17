@@ -6,6 +6,7 @@ import os
 
 env.hosts = ['34.75.198.31', '54.196.188.151']
 
+
 def do_pack():
     '''
         Creating an archive with the file in web_static folder
@@ -24,6 +25,7 @@ def do_pack():
         return (filename)
     else:
         return None
+
 
 def do_deploy(archive_path):
     '''
