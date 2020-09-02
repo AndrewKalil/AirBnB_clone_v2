@@ -11,6 +11,8 @@ from models.review import Review
 from sqlalchemy import create_engine
 from os import getenv
 
+classes = {"Amenity": Amenity, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
 
 class DBStorage:
     """New Engine
@@ -35,27 +37,18 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """all objects depending of the class name"""
-        clss = [State,
-                City,
-                User,
-                Place,
-                Review,
-                Amenity]
-        objs = []
-        _dic = {}
-
+        """query on the current database session"""
+        new_dict = {}
+        objs = [v for k, v in classes.items()]
         if cls:
-            objs = self.__session.query(cls).all()
-        else:
-            for cls in clss:
-                objs += self.__session.query(cls)
-
-        for obj in objs:
-            key = "{}.{}".format(type(obj).__name__, str(obj.id))
-            _dic[key] = obj
-
-        return _dic
+            if isinstance(cls, str):
+                cls = classes[cls]
+            objs = [cls]
+        for c in objs:
+            for instance in self.__session.query(c):
+                key = str(instance.__class__.__name__) + "." + str(instance.id)
+                new_dict[key] = instance
+        return (new_dict)
 
     def new(self, obj):
         """add the object to the current database session"""
