@@ -42,6 +42,7 @@ def number(n):
     if type(n) == int:
         return '%i is a number' % n
 
+
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_template(n):
     """Returns a template at the /number_template/<n> route,

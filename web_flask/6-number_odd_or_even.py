@@ -42,12 +42,14 @@ def number(n):
     if type(n) == int:
         return '%i is a number' % n
 
+
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_template(n):
     """Returns a template at the /number_template/<n> route,
     expanding route"""
     if type(n) == int:
         return render_template('5-number.html', n=n)
+
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def number_odd_or_even(n):
@@ -56,6 +58,6 @@ def number_odd_or_even(n):
     if type(n) == int:
         return render_template('6-number_odd_or_even.html', n=n)
 
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
-
