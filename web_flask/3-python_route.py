@@ -10,10 +10,12 @@ def hello_holberton():
     """Returns a string"""
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """Returns a string at the /hbnb route"""
     return 'HBNB'
+
 
 @app.route('/c/<text>', strict_slashes=False)
 def cisfun(text):
@@ -22,6 +24,7 @@ def cisfun(text):
     new = text.replace('_', ' ')
     return 'C %s' % new
 
+
 @app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def pythoniscool(text):
@@ -29,6 +32,7 @@ def pythoniscool(text):
     of 'is cool', or the expansion of <text>"""
     new = text.replace('_', ' ')
     return 'Python %s' % new
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
